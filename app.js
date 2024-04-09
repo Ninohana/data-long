@@ -6,7 +6,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
 const fs = require('fs');
-const getChampDetail = require('./request');
+const ChampionDetail = require('./request');
 
 var app = express();
 
@@ -54,7 +54,7 @@ const handlers = files.reverse().filter(f => f.endsWith('.js'))
 for (const handler of handlers) {
     app.use(handler.route, async (req, res) => {
         try {
-            const championDetail = await getChampDetail(req.params.id)
+            const championDetail = await ChampionDetail.get(req.params.id)
             if (championDetail == null)
                 throw new Error('无法获取英雄信息')
 
