@@ -1,5 +1,5 @@
 module.exports = (championDetail, params) => {
-    const info = championDetail.list["championLane"][params.lane || 0]
+    const info = championDetail.list["championLane"][params.lane ?? Object.keys(championDetail.list["championLane"])[0]]
 
     let i = 1, r = [];
     while (item = JSON.parse(info["perkdetail"])["" + i++]) {
