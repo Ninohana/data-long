@@ -1,5 +1,7 @@
-module.exports = (championDetail, params) => {
-    const info = championDetail.list["championLane"][params.lane ?? Object.keys(championDetail.list["championLane"])[0]]
+module.exports = async (providers, params) => {
+    const championDetail = await providers[0].supply(params.id)
+
+    const info = championDetail['championLane'][params.lane ?? Object.keys(championDetail.championLane)[0]]
 
     let i = 1, r = [];
     while (item = JSON.parse(info["perkdetail"])["" + i++]) {

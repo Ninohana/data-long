@@ -6,7 +6,6 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
 const fs = require('fs');
-const ChampionDetail = require('./request');
 
 var app = express();
 
@@ -39,29 +38,37 @@ app.use((req, res, next) => {
 /**
   * binding route
   */
+const providerPath = path.join(__dirname, 'out', 'data-source', 'provider')
+const providerFiles = fs.readdirSync(providerPath)
+const providerList = providerFiles.filter(f => f.endsWith('.js')).map(f => require(path.join(providerPath, f)).default)
+
 const handlerPath = path.join(__dirname, 'handler');
 const files = fs.readdirSync(handlerPath)
 const handlers = files.reverse().filter(f => f.endsWith('.js'))
     .map(file => {
         const identifier = file.split('.').shift()
-        const route = `/${file.replace(/\.js$/i, '').replace(/_/g, '/').replace('@', ':')}`
+        let providers = []
+        const route = `/${file.replace(/\[([a-z]+)\]/, (m, p1, o, s) => {
+            providers = providerList.filter(p => p.support(p1))
+            return ''
+        })
+            .replace(/\.js$/i, '')
+            .replace(/_/g, '/')
+            .replace(/@/g, ':')}`
         const modulePath = path.join(handlerPath, file)
         const handle = require(modulePath)
 
-        return { identifier, route, handle }
+        return { identifier, route, providers, handle }
     })
+console.log(handlers)
 
 for (const handler of handlers) {
     app.use(handler.route, async (req, res) => {
         try {
-            const championDetail = await ChampionDetail.get(req.params.id)
-            if (championDetail == null)
-                throw new Error('无法获取英雄信息')
-
             res.send({
                 code: 200,
                 msg: 'succ',
-                data: handler.handle(championDetail, { ...req.params, ...req.query })
+                data: await handler.handle(handler.providers, { ...req.params, ...req.query })
             })
         }
         catch (e) {
