@@ -1,3 +1,5 @@
+[toc]
+
 # Data LONG
 
 数据龙，基于外部数据提供者的lol英雄作战配置推荐接口。
@@ -27,10 +29,12 @@ npm start #需要node环境
 > 胜率登场率均为百分数的整数形式，例如67.89%->6789
 
 > 所有请求均为get方式，参数跟在`?`后通过`&`连接
+> 
+## 符文
 
 | 请求地址 | 描述 | 备注 |
 | -- | -- | -- |
-| /champion/{championId}/perk | 获取符文配置 | {championId}替换成英雄ID |
+| /champion/`championId`/perk | 获取符文配置 | `championId`替换成英雄ID |
 
 | 参数 | 类型 | 必需 | 描述 |
 | -- | -- | -- | -- |
@@ -64,12 +68,13 @@ npm start #需要node环境
     ]
 }
 ```
+## 出装
 
 | 请求地址 | 描述 | 备注 |
 | -- | -- | -- |
-| /champion/{championId}/item | 获取英雄出装 | {championId}替换成英雄ID |
-| /champion/{championId}/item/core3 | 获取英雄出装核心三件 | {championId}替换成英雄ID |
-| /champion/{championId}/item/shoes | 获取英雄出装鞋子 | {championId}替换成英雄ID |
+| /champion/`championId`/item | 获取英雄出装 | `championId`替换成英雄ID |
+| /champion/`championId`/item/core3 | 获取英雄核心三件出装 | `championId`替换成英雄ID |
+| /champion/`championId`/item/shoes | 获取英雄鞋子出装 | `championId`替换成英雄ID |
 
 | 参数 | 类型 | 必需 | 描述 |
 | -- | -- | -- | -- |
@@ -93,10 +98,11 @@ npm start #需要node环境
     ]
 }
 ```
+## 加点
 
 | 请求地址 | 描述 | 备注 |
 | -- | -- | -- |
-| /champion/{championId}/skill | 获取加点 | {championId}替换成英雄ID |
+| /champion/`championId`/skill | 获取加点 | `championId`替换成英雄ID |
 
 | 参数 | 类型 | 必需 | 描述 |
 | -- | -- | -- | -- |
@@ -135,6 +141,33 @@ npm start #需要node环境
 }
 ```
 
+## BUFF
+
+| 请求地址 | 描述 | 备注 |
+| -- | -- | -- |
+| /champion/`championId`/buff | 获取各个模式中的buff/debuff | `championId`替换成英雄ID |
+
+```
+// 响应
+{
+    "code": 200,
+    "msg": "succ",
+    "data": {
+        "id": 202,
+        "name": "Jhin",
+        "title": "The Virtuoso",
+        "stats": {
+            "aram": {
+                "dmg_dealt": 0.9,
+                "dmg_taken": 1.05
+            },
+            "urf": {
+                "dmg_dealt": 1.05
+            }
+        }
+    }
+}
+```
 暂无更多
 
 # 计划
