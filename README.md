@@ -10,17 +10,30 @@
 git clone https://github.com/Ninohana/data-long.git
 ```
 
-安装所需依赖
+安装所需依赖（**需要node环境**）
 
 ```bash
-npm install #需要node环境
+npm install
+```
+
+编译
+```bash
+npm run build
+# 或者
+tsc
 ```
 
 运行
 
 ```bash
-npm start #需要node环境
+npm start
 ```
+
+访问接口
+
+HTTP    GET
+
+localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 
 # 接口说明
 
