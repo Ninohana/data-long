@@ -121,11 +121,11 @@ class BalanceData {
 }
 
 
-class ChampionDetailProvider implements Provider<BalanceData> {
+class ChampionBalanceDataProvider implements Provider<BalanceData> {
     support(type: string): boolean {
         return type == "buff"
     }
-    
+
     async supply(championId: string): Promise<BalanceData> {
         try {
             const data = (await axios.get('https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data')).data
@@ -149,4 +149,4 @@ class ChampionDetailProvider implements Provider<BalanceData> {
 
 }
 
-export default new ChampionDetailProvider()
+export default new ChampionBalanceDataProvider()
