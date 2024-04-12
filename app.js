@@ -48,8 +48,15 @@ const handlers = files.reverse().filter(f => f.endsWith('.js'))
     .map(file => {
         const identifier = file.split('.').shift()
         let providers = []
-        const route = `/${file.replace(/\[([a-z]+)\]/, (m, p1, o, s) => {
-            providers = providerList.filter(p => p.support(p1))
+        const route = `/${file.replace(/\[([a-z]+(,[a-z]+)*)\]/, (m, p1) => {
+            providers = providerList.filter(p => {
+                for (const i of p1.split(',')) {
+                    if (p.support(i)) {
+                        return true
+                    }
+                }
+                return false
+            })
             return ''
         })
             .replace(/\.js$/i, '')
