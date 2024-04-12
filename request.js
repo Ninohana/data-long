@@ -12,19 +12,18 @@ class NeedCacheError extends Error {
 class C {
   static diskCacheStorage = new CacheStorage.DiskCacheStorage()
   static hasCache(key) {
-    return C.diskCacheStorage.hasCache(key)
+    return C.diskCacheStorage.has(key)
   }
   static setCache(key, cache) {
-    C.diskCacheStorage.setCache(key, cache)
+    C.diskCacheStorage.store(key, cache)
   }
   static getCache(key) {
-    return C.diskCacheStorage.getCache(key)
+    return C.diskCacheStorage.match(key)
   }
   static delCache(key) {
-    C.diskCacheStorage.delCache(key)
+    C.diskCacheStorage.delete(key)
   }
 }
-//const diskCacheStorage = new CacheStorage.DiskCacheStorage()
 
 axios.interceptors.request.use(
   (config) => {
@@ -42,7 +41,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
-    C.setCache(response.config.url, new Cache.ResponseDataCache(response.data, 6 * 60 * 60 * 1000))
+    C.setCache(response.config.url, new Cache.ResponseDataCache(response.data, 1 * 60 * 60 * 1000))// an hour
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // return response.data;// ts can not process type check

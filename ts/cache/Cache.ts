@@ -1,6 +1,3 @@
-import fs from 'fs'
-import { v4 as uuid } from "uuid"
-
 export interface Expirable {
     isExpire(): boolean
 }
@@ -10,23 +7,16 @@ export default interface Cache<T> extends Expirable {
 }
 
 export class ResponseDataCache implements Cache<string> {
-    path: string
+    data: string
     time = new Date().getTime()
 
     constructor(data: string, time?: number) {
-        this.path = `./response_cache/${uuid()}`
-        try {
-            fs.mkdirSync("./response_cache/")
-        } catch (error) {
-            ;
-        }
-        fs.writeFileSync(this.path, data)
-
+        this.data = data
         this.time = time ? this.time + time : -1
     }
 
     getData(): string {
-        return fs.readFileSync(this.path).toString()
+        return this.data
     }
 
     isExpire(): boolean {
