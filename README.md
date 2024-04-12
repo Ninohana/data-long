@@ -197,14 +197,10 @@ localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 
 ## 通过vercel
 
-需要vercel账户，免费注册
+需要vercel账户，[免费注册](https://vercel.com)
 
-1. Fork 此项目
-2. 安装vercel
-   ```npm install -g vercel```
-3. 登录vercel账号
-   ```vercel login```
-4. 在项目根目录执行部署命令
-   ```vercel```或用```vercel --prod```直接部署到生产
-5. 通过控制台查看结果
-   如果看到与[Data LONG](http://data-long.vercel.app)相同的页面，即为部署成功
+1. Fork并Clone此项目
+2. 安装vercel```npm install -g vercel```
+3. 登录vercel账号```vercel login```
+4. 在项目根目录执行部署命令```vercel```或用```vercel --prod```直接部署到生产
+5. 通过控制台查看结果，如果看到与[Data LONG](http://data-long.vercel.app)相同的页面，即为部署成功
