@@ -2,24 +2,20 @@ export interface Expirable {
     isExpire(): boolean
 }
 
-export default interface Cache<T> extends Expirable {
+export default interface Cache<T> {
     getData(): T
 }
 
-export class ResponseDataCache implements Cache<string> {
-    data: string
-    time = new Date().getTime()
+export abstract class ExpirableCache<T> implements Cache<T>, Expirable {
+    time: number = new Date().getTime()
 
-    constructor(data: string, time?: number) {
-        this.data = data
+    constructor(time?: number) {
         this.time = time ? this.time + time : -1
-    }
-
-    getData(): string {
-        return this.data
     }
 
     isExpire(): boolean {
         return new Date().getTime() - this.time > 0
     }
+
+    abstract getData(): T
 }

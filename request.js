@@ -1,6 +1,5 @@
-const axios = require('axios')
-const CacheStorage = require('./out/cache/CacheStorage')
-const Cache = require("./out/cache/Cache")
+const axios = require("axios")
+const CacheStorage = require(`./out/cache/${process.env.CACHE_STORAGE}`)
 
 class NeedCacheError extends Error {
   constructor(cache) {
@@ -9,39 +8,36 @@ class NeedCacheError extends Error {
   }
 }
 
-class C {
-  static diskCacheStorage = new CacheStorage.DiskCacheStorage()
-  static hasCache(key) {
-    return C.diskCacheStorage.has(key)
-  }
-  static setCache(key, cache) {
-    C.diskCacheStorage.store(key, cache)
-  }
-  static getCache(key) {
-    return C.diskCacheStorage.match(key)
-  }
-  static delCache(key) {
-    C.diskCacheStorage.delete(key)
+class Storage {
+  static cacheStorage = new CacheStorage.default()
+  static getInstance() {
+    return this.cacheStorage
   }
 }
 
 axios.interceptors.request.use(
-  (config) => {
-    if (C.hasCache(config.url)) {
-      const cache = C.getCache(config.url)
-      if (cache.isExpire()) {
-        C.delCache(config.url)
-      } else {
-        throw new NeedCacheError(cache.getData())
+  async (config) => {
+    let cache
+    try {
+      if (!await Storage.getInstance().has(config.url)) {
+        return Promise.resolve(config)
       }
+      // there is a delay depending on the network env(Redis servier)
+      cache = await Storage.getInstance().match(config.url)
+      if (cache == null) {
+        return Promise.resolve(config)
+      }
+    } catch (error) {
+      console.error(error)
+      return Promise.resolve(config)
     }
-    return config
+    throw new NeedCacheError(cache)
   }
 )
 
 axios.interceptors.response.use(
   (response) => {
-    C.setCache(response.config.url, new Cache.ResponseDataCache(response.data, 1 * 60 * 60 * 1000))// an hour
+    Storage.getInstance().store(response.config.url, response.data)
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // return response.data;// ts can not process type check

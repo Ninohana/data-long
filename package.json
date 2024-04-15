@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "node ./bin/www"
+    "start": "node --env-file=.env ./bin/www"
   },
   "dependencies": {
+    "@vercel/kv": "^1.0.1",
     "axios": "^1.6.8",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
