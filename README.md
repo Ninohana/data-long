@@ -29,6 +29,19 @@ npm run build
 tsc
 ```
 
+配置环境变量（根目录新建文件`.env`）
+```propertity
+CACHE_STORAGE="DiskCacheStorage"# 缓存类型，可选DiskCacheStorage、RedisCacheStorage
+CACHE_EXPIRE_TIME="5"# 缓存有效期（单位秒）
+
+# 缓存类型选择RedisCacheStorage需要额外配置，需要通过vecel cli获取
+# 参考：https://vercel.com/docs/storage/vercel-kv
+KV_REST_API_READ_ONLY_TOKEN=""
+KV_REST_API_TOKEN=""
+KV_REST_API_URL=""
+KV_URL=""
+```
+
 运行
 
 ```bash
@@ -205,4 +218,4 @@ localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 4. 在项目根目录执行部署命令```vercel```或用```vercel --prod```直接部署到生产
 5. 通过控制台查看结果，如果看到与[Data LONG](http://data-long.vercel.app)相同的页面，即为部署成功
 
-# 请勿也不需要进行压力测试，本项目只应作为单个应用程序的后台支持
+## 请勿也不需要进行压力测试，本项目只应作为单个应用程序的后台支持
