@@ -1,5 +1,3 @@
-# 目录
-
 [TOC]
 
 # Data LONG
@@ -7,52 +5,6 @@
 > the Long is the Long, no Dragon
 
 数据龙，基于外部数据提供者的lol英雄作战配置推荐接口。
-
-# 快速开始
-
-克隆本仓库
-
-```bash
-git clone https://github.com/Ninohana/data-long.git
-```
-
-安装所需依赖（**需要node环境**）
-
-```bash
-npm install
-```
-
-编译
-```bash
-npm run build
-# 或者
-tsc
-```
-
-配置环境变量（根目录新建文件`.env`）
-```propertity
-CACHE_STORAGE="DiskCacheStorage"# 缓存类型，可选DiskCacheStorage、RedisCacheStorage
-CACHE_EXPIRE_TIME="5"# 缓存有效期（单位秒）
-
-# 缓存类型选择RedisCacheStorage需要额外配置，需要通过vecel cli获取
-# 参考：https://vercel.com/docs/storage/vercel-kv
-KV_REST_API_READ_ONLY_TOKEN=""
-KV_REST_API_TOKEN=""
-KV_REST_API_URL=""
-KV_URL=""
-```
-
-运行
-
-```bash
-npm start
-```
-
-访问接口
-
-HTTP    GET
-
-localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 
 # 接口说明
 
@@ -184,12 +136,12 @@ localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
     "msg": "succ",
     "data": {
         "id": 202,
-        "name": "Jhin",
-        "title": "The Virtuoso",
+        "name": "Jhin",              // 英雄名称
+        "title": "The Virtuoso",     // 称号
         "stats": {
             "aram": {
-                "dmg_dealt": 0.9,
-                "dmg_taken": 1.05
+                "dmg_dealt": 0.9,    // 伤害变化倍率
+                "dmg_taken": 1.05    // 承伤变化倍率
             },
             "urf": {
                 "dmg_dealt": 1.05
@@ -205,6 +157,52 @@ localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 - 多数据源
 - 英雄趋势
 - 对位优劣
+
+# 快速开始
+
+克隆本仓库
+
+```bash
+git clone https://github.com/Ninohana/data-long.git
+```
+
+安装所需依赖（**需要node环境**）
+
+```bash
+npm install
+```
+
+编译
+```bash
+npm run build
+# 或者
+tsc
+```
+
+配置环境变量（根目录新建文件`.env`）
+```propertity
+CACHE_STORAGE="DiskCacheStorage"# 缓存类型，可选DiskCacheStorage、RedisCacheStorage
+CACHE_EXPIRE_TIME="5"# 缓存有效期（单位秒）
+
+# 缓存类型选择RedisCacheStorage需要额外配置，需要通过vecel cli获取
+# 参考：https://vercel.com/docs/storage/vercel-kv
+KV_REST_API_READ_ONLY_TOKEN=""
+KV_REST_API_TOKEN=""
+KV_REST_API_URL=""
+KV_URL=""
+```
+
+运行
+
+```bash
+npm start
+```
+
+访问接口
+
+HTTP    GET
+
+localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 
 # 部署
 
