@@ -202,6 +202,8 @@ npm start
 
 HTTP    GET
 
+localhost:3000
+
 localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 
 # 部署
@@ -215,5 +217,3 @@ localhost:3000/champion/202/perk?lane=bottom&order=showrate&by=desc
 3. 登录vercel账号```vercel login```
 4. 在项目根目录执行部署命令```vercel```或用```vercel --prod```直接部署到生产
 5. 通过控制台查看结果，如果看到与[Data LONG](http://data-long.vercel.app)相同的页面，即为部署成功
-
-## 请勿也不需要进行压力测试，本项目只应作为单个应用程序的后台支持
