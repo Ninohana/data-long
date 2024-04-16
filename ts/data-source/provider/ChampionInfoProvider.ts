@@ -1,5 +1,5 @@
 import request from "../../../request"
-import { GameElement } from "../../GameElement";
+import GameElement from "../../game/GameElement";
 import Provider from "../Provider";
 
 class ChampionInfo implements GameElement {

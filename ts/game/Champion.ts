@@ -1,6 +1,6 @@
-import { GameElement } from "./GameElement";
+import GameElement from "./GameElement";
 
-export class Champion implements GameElement{
+export class Champion implements GameElement {
     id: string;
     name: string;
     alias: string;

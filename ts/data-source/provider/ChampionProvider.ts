@@ -1,5 +1,5 @@
 import request from "../../../request"
-import { Champion } from "../../Champion";
+import { Champion } from "../../game/Champion";
 import Provider from "../Provider";
 
 class ChampionProvider implements Provider<Champion> {
