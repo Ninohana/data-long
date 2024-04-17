@@ -50,6 +50,8 @@
     ]
 }
 ```
+*[ID对应符文名称参考](https://github.com/Ninohana/data-long/wiki/Perk-ID)*
+
 ## 出装
 
 | 请求地址 | 描述 | 备注 |
