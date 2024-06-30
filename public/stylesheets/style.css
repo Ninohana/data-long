@@ -4,5 +4,6 @@ body {
 }
 
 a {
+  padding: 0 5px;
   color: #00B7FF;
 }
